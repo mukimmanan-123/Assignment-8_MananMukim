@@ -126,9 +126,7 @@ NearMiss = NearMiss()
 X_train_Under, y_train_Under = NearMiss.fit_sample(X_train, y_train)
 
 # Scoring
-scoring = make_scorer(f1_score)
-scoring_1 = make_scorer(balanced_accuracy_score)
-
+scoring = make_scorer(balanced_accuracy_score)
 
 # Logistic Regression
 def Logistic_Grid():
@@ -501,3 +499,18 @@ classifier.fit(X_train_Under, y_train_Under)
 predictions = classifier.predict(X_test)
 score_calculator()
 Scores_And_GridSearch("SVM", 2)
+
+"""After Performing parameter tuning, over-sampling and under-sampling we came to a conclusing for choosing
+a model with good recall_score and a good balanced_accuracy score.
+We are choosing balanced accuracy score because it is a measure of recall of positive class + recall of negative class 
+and it outperforms f1_score when positives >> negatives
+We according to the results got, the best model is Logistic Classifier with oversampling
+Cause we are getting a good balanced accuracy around 76%
+And a recall about 76.5%"""
+
+print("=" * 40)
+print("Logistic Classifier")
+classifier = LogisticRegression(penalty='l2')
+classifier.fit(X_train_Over, y_train_Over)
+predictions = classifier.predict(X_test)
+score_calculator()
